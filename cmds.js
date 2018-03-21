@@ -405,9 +405,9 @@ exports.showCmd = (rl, id)=>{
 };
 */
 exports.creditsCmd = (socket,rl) =>{
-	log('Autores de la practica:');
-	 log('CRISTINA Rodriguez Beltran');
-	 log('IVAN Martinez Ariza');
+	log(socket,'Autores de la practica:');
+	 log(socket,'CRISTINA Rodriguez Beltran');
+	 log(socket,'IVAN Martinez Ariza');
 	 rl.prompt();
 };
 exports.quitCmd = (socket,rl) =>{
