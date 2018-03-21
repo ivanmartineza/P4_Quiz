@@ -144,10 +144,10 @@ exports.editCmd = (socket,rl, id) => {
         return quiz.save();
 })
 .then(quiz => {
-        log(`Se ha cambiado el quiz ${colorize(quiz.id, 'magenta')} por: ${quiz.question} ${colorize('=>', 'magenta')} ${quiz.answer}`);
+        log(socket,`Se ha cambiado el quiz ${colorize(quiz.id, 'magenta')} por: ${quiz.question} ${colorize('=>', 'magenta')} ${quiz.answer}`);
 })
 .catch(Sequelize.ValidationError, error => { //Si hay errores de validación
-        errorlog('El quiz es erroneo: ');
+        errorlog(socket,'El quiz es erroneo: ');
     error.errors.forEach(({message}) => errorlog(message));
 })
 .catch(error => {
@@ -202,7 +202,7 @@ exports.testCmd = (socket,rl,id) => {
 })
 })
 .catch(Sequelize.ValidationError, error => { //Si hay errores de validación
-        errorlog('El quiz es erroneo: ');
+        errorlog(socket,'El quiz es erroneo: ');
     error.errors.forEach(({message}) => errorlog(message));
 })
 .catch(error => {
@@ -380,7 +380,7 @@ ESta función devuelve una promesa que cuando se cumple, proporciona el texto in
 	@param rl objeto readline utilizado para implementra el CLI
 	@param text pregunta que hay que hacerle al usuario
  */
-const makeQuestion = (socket,rl, text) => {
+const makeQuestion = (rl, text) => {
 
     return new Sequelize.Promise((resolve, reject) => {
         rl.question(colorize(text, 'red'), answer => {
@@ -412,4 +412,6 @@ exports.creditsCmd = (socket,rl) =>{
 };
 exports.quitCmd = (socket,rl) =>{
 	rl.close();
+	rl.prompt();
+	socket.end();
 };
