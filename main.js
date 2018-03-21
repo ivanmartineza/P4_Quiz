@@ -7,11 +7,12 @@ const { log, biglog, errorlog, colorize} =require("./out");
 const cmds =require("./cmds");
 // creamos la variable net para refereir el moculo
 const net = require("net");
+
 net.createServer(socket => {
     console.log("Se ha conectado un cliente desde " + socket.remoteAddress);
 
     //sale el mensaje de bienvenida
-    biglog('CORE Quiz', 'green');
+    biglog(socket, 'CORE Quiz', 'green');
     const rl = readline.createInterface({
         input: socket,
         output: socket,//nos pinta de color azul el prompt
