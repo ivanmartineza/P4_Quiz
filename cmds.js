@@ -68,8 +68,8 @@ exports.addCmd = (socket,rl) => {
         log(socket,` ${colorize('Se ha añadido', 'magenta')}: ${quiz.question} ${colorize('=>', 'magenta')} ${quiz.answer}`);
 })
 .catch(Sequelize.ValidationError, error => { //Si hay errores de validación
-        errorlog('El quiz es erroneo: ');
-    error.errors.forEach(({message}) => errorlog(message));
+        errorlog(socket,'El quiz es erroneo: ');
+    error.errors.forEach(({message}) => errorlog(socket,message));
 })
 .catch(error => {
         errorlog(socket, error.message);
@@ -337,7 +337,7 @@ Esta funcion devuelve una promesa que:
 
 @param is parametro con el indice a validar
  */
-const validateId = (socket,id) => {
+const validateId = id => {
 
     return new Sequelize.Promise((resolve, reject) => {// Sequilize.Promise - promesas de sequielize
         if (typeof id === "undefined") {
